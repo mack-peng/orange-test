@@ -3,20 +3,20 @@
 基于selenium框架的脚手架，将测试流程变得结构化，工程化
 
 ## demo介绍
-1.down后需要配置chrome_path，在config.py app.chrome_path
-2.执行在run.py
-3.流程
-    3.1、打开baidu.com
-    3.2、登录
-    3.3、手动通过图形验证
-    3.4、搜索框填数据并搜索
+1.down后需要配置chrome_path，在config.py app.chrome_path  
+2.执行在run.py  
+3.流程  
+    3.1、打开baidu.com  
+    3.2、登录  
+    3.3、手动通过图形验证  
+    3.4、搜索框填数据并搜索  
 
 ## 框架介绍
 
 |-- autolt 放置window脚本，一般用于上传选择文件  
-|-- core 框架核心文件 
-|-- src 编写区域
-main.py 入口文件
+|-- core 框架核心文件  
+|-- src 编写区域  
+main.py 入口文件  
 config.py 配置文件所在位置
 
 ##### /app/controller/__init__.py 说明
@@ -62,16 +62,11 @@ click(xpath):点击该元素
 
 ## 使用
 
-控制器
-    /app/controller
-页面
-    /app/page
-windows脚本：用于操作上传等复杂事务
-    /autolt
-配置类
-    config.py
-入口执行文件
-    run.py
+控制器目录：/app/controller    
+页面： /app/page    
+windows脚本：用于操作上传等复杂事务 /autolt    
+配置类：config.py    
+入口执行文件：run.py 
 
 
 
