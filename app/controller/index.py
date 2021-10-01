@@ -1,11 +1,12 @@
-import time
 from core.Controller import Controller
 
 @Controller.controller_register('index')
-class index(object):
-    url = '/'
+class index():
+    driver = ''
 
-    def run(self, driver):
-        driver.get('https://www.qq.com')
-        time.sleep(2)
-        return driver
+    def __init__(self, driver):
+        self.driver = driver
+
+    # 模块的主运行方法，将自动执行
+    def run(self):
+        pass

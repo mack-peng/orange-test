@@ -1,1 +1,2 @@
-__all__ = ['index', 'login']
+# 首页--->登录
+__all__ = ['index', 'login', 'search']
