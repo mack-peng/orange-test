@@ -3,7 +3,6 @@ import config
 from selenium import webdriver
 from core.Controller import Controller
 
-
 class main():
 
     driver = ''

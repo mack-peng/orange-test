@@ -3,7 +3,8 @@
 基于selenium框架的脚手架，将测试流程变得结构化，工程化
 
 ## demo介绍
-1.down后需要配置chrome_path，在config.py app.chrome_path  
+1.down后需要配置chrome_path，在config.py app.chrome_path
+[chromedriver下载使用](https://www.cnblogs.com/lfri/p/10542797.html)
 2.执行在run.py  
 3.流程  
     3.1、打开baidu.com  
@@ -15,7 +16,10 @@
 
 |-- autolt 放置window脚本，一般用于上传选择文件  
 |-- core 框架核心文件  
-|-- src 编写区域  
+|-- app 编写区域  
+&nbsp;&nbsp;|-- __init__.py 控制执行时的顺序与需要执行的模块  
+&nbsp;&nbsp;|-- controller 业务控制类  
+&nbsp;&nbsp;|-- page 页面实体类
 main.py 入口文件  
 config.py 配置文件所在位置
 

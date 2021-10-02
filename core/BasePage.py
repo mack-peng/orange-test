@@ -22,7 +22,13 @@ class BasePage:
     def xpath(self, xpath):
         if xpath in self._XPATH:
             _xpath = self._XPATH[xpath]
-            return self.driver.find_element_by_xpath(_xpath)
+            try:
+                ele = self.driver.find_element_by_xpath(_xpath)
+                return ele
+            except:
+                print("错误：元素未找到，key:" + xpath)
+                # raise Exception("元素未找到，key:" + xpath)
+
         else:
             raise Exception("page中未定义该xpath")
 
