@@ -3,7 +3,7 @@
 基于selenium框架的脚手架，将测试流程变得结构化，工程化
 
 ## demo介绍
-1.down后需要配置chrome_path，在config.py app.chrome_path
+1.down后需要配置chrome_path，在config.py app.chrome_path  
 [chromedriver下载使用](https://www.cnblogs.com/lfri/p/10542797.html)
 2.执行在run.py  
 3.流程  
@@ -49,10 +49,10 @@ def __init__(self, driver):
 ```
 
 ## page
-page 是框架的模型层，框架设计中，对项目的每个页面建立一个实体类，该实体类继承于BasePage，其中有几个默认定义变量
-_URL: string,用于定义该页面的url地址，不带域名前缀。当使用该页面时，如当前浏览器页面不在该页面，将主动跳转到该页面
-_XPATH: {},定义该页面需要操作的元素的xpath，用于之后方便使用，操作页面都需要在此处定义才能操作
-_DATA: {},定义该页面需要填报的数据，用于表单或输入框
+page 是框架的模型层，框架设计中，对项目的每个页面建立一个实体类，该实体类继承于BasePage，其中有几个默认定义变量  
+_URL: string,用于定义该页面的url地址，不带域名前缀。当使用该页面时，如当前浏览器页面不在该页面，将主动跳转到该页面  
+_XPATH: {},定义该页面需要操作的元素的xpath，用于之后方便使用，操作页面都需要在此处定义才能操作  
+_DATA: {},定义该页面需要填报的数据，用于表单或输入框  
 
 实例化
 唯一参数：传入selenium driver浏览器对象
