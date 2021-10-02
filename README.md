@@ -55,11 +55,11 @@ _XPATH: {},定义该页面需要操作的元素的xpath，用于之后方便使�
 _DATA: {},定义该页面需要填报的数据，用于表单或输入框  
 
 实例化
-唯一参数：传入selenium driver浏览器对象
-可使用的方法：
-以下参数xpath都是page实体类中_XPATH中定义的key
-xpath(xpath=''):获取该页面的实体，返回selenium element对象
-click(xpath):点击该元素
+唯一参数：传入selenium driver浏览器对象  
+可使用的方法：  
+以下参数xpath都是page实体类中_XPATH中定义的key  
+xpath(xpath=''):获取该页面的实体，返回selenium element对象  
+click(xpath):点击该元素  
 
 ## config
 配置文件
