@@ -1,111 +1,225 @@
-# test-cli
+# TestCLI
 
 基于selenium框架的脚手架，将测试流程变得结构化，工程化
 
-## demo介绍
-1.down后需要配置chrome_path，在config.py app.chrome_path  
-[chromedriver下载使用](https://www.cnblogs.com/lfri/p/10542797.html)
-2.执行在run.py  
-3.流程  
-    3.1、打开baidu.com  
-    3.2、登录  
-    3.3、手动通过图形验证  
-    3.4、搜索框填数据并搜索  
+----------------
 
-## 框架介绍
+## 序言
 
-|-- autolt 放置window脚本，一般用于上传选择文件  
-|-- core 框架核心文件  
-|-- app 编写区域  
-&nbsp;&nbsp;|-- __init__.py 控制执行时的顺序与需要执行的模块  
-&nbsp;&nbsp;|-- controller 业务控制类  
-&nbsp;&nbsp;|-- page 页面实体类
-main.py 入口文件
-config.py 配置文件
+TestCLI是基于selenium框架的脚手架。应对复杂工程的利器，摆脱原有自动化测试代码编写混乱，不好维护的弊病。通过框架，让测试程序开发人员专注于业务逻辑。致力于测试流程模块化，低耦合，多人共同编写维护。互不影响且能统一测试。遵循`Apache2`开源许可协议发布，意味着你可以免费使用TestCLI，甚至允许把你基于TestCLI开发的应用开源或商业产品发布/销售
 
-##### /app/controller/__init__.py 说明
-该文件在添加了控制器后需要在其中添加该控制器模块名，然后依该数组顺序的顺序执行，登录等前置操作放到最前
+## 基础
+
+### 安装
+
+**TestCLI**的环境要求如下：
+
+> - Python > 3.7
+> - Selenium
+> - 谷歌浏览器
+> - Chrome Driver
+
+TestCLI无需安装，下载源代码，在以上环境OK的情况下便可运行
+
+#### Git安装
+
+```
+
+项目地址：https://github.com/dnqxj/test-cli
+
+git clone git@github.com:dnqxj/test-cli.git TestCLI
+```
+
+#### Chrome Driver 下载
+
+```
+[selenium和chromedriver下载使用](https://www.cnblogs.com/lfri/p/10542797.html)
+```
+
+将下载好的chrome driver放到磁盘某一目录，修改项目根目录下的配置文件（config.py)。中的app.chrome_path。修改为自己chrome driver的位置。
+
+#### 运行demo
+
+使用python执行根目录下的run.py
+
+### 开发规范
+
+遵循Python开发规范
+
+### 目录结构
+
+project 项目目录
+
+```
+├─app           		应用目录
+│  ├─controller         控制器目录
+│  │  ├─__init__.py     流程控制列表
+│  ├─page         		页面目录
+│  │─—__init__.py       自动加载逻辑(勿动)
+│  │─—main.py       	主流程文件(勿动)
+├─autolt                windows脚本
+├─core                  核心文件目录
+│  ├─BasePage.py        页面操作基类
+│  ├─Controller.py      控制器基类
+├─config.py             项目配置文件
+├─LICENSE.txt           授权说明文件
+├─README.md             README 文件
+├─run.py                执行入口文件
+```
+
+### 配置
+
+主配置文件在项目根目录下的config.py文件
+
+app配置`//config.py`
+
+| 配置参数      | 描述                                                    |
+| :------------ | ------------------------------------------------------- |
+| base_url      | 项目域名地址                                            |
+| initial_path  | 初始化打开地址路径，默认空，打开项目域名                |
+| device_name   | 手机端设备配置，eg.iPhone 6/7/8，参照谷歌浏览器设备配置 |
+| chrome_path   | chrome driver在电脑中的绝对路径                         |
+| window_width  | 窗口的宽度                                              |
+| window_height | 窗口的高度                                              |
+
+运行流程配置 `app/controller/__init__.py`
+
 ```python
+# 这里填写的模块就是执行的顺序，不填写便不执行
 __all__ = ['index', 'login', 'search']
 ```
 
-## controller
-controller 是框架的控制器层（逻辑层），主要用于跨页面调用逻辑，简单逻辑也可直接写在controller层中
+## 架构
+
+当前框架为单模块应用。后期根据需要是否引入多模块
+
+### 控制器
+
+一个典型的`Index`控制器类如下：
+
 ```python
 from core.Controller import Controller
 
-# 添加新的controller,需要添加修饰器注册
-@Controller.controller_register('search')
-class search():
-    pass
-
+# 修饰器注册controller
+@Controller.controller_register('Index')
+class Index():
     driver = ''
-    # 添加初始化方法，向类中添加driver实例
+
     def __init__(self, driver):
         self.driver = driver
-    
-    # 主逻辑编写函数，run在程序运行时会自动执行
+
+    # 模块的主运行方法，将自动执行
     def run(self):
         pass
 ```
 
-## page
-page 是框架的模型层，框架设计中，对项目的每个页面建立一个实体类，该实体类继承于BasePage，其中有几个默认定义变量  
-_URL: string,用于定义该页面的url地址，不带域名前缀。当使用该页面时，如当前浏览器页面不在该页面，将主动跳转到该页面  
-_XPATH: {},定义该页面需要操作的元素的xpath，用于之后方便使用，操作页面都需要在此处定义才能操作  
-_DATA: {},定义该页面需要填报的数据，用于表单或输入框  
+### 操作
 
-实例化
-唯一参数：传入selenium driver浏览器对象  
-可使用的方法：  
-以下参数xpath都是page实体类中_XPATH中定义的key  
-- 封装的父类方法，可直接使用
-    - self.xpath(xpath=''): 获取该页面的实体，返回selenium element对象  
-    - self.click(xpath): 点击该元素
-    - self.input(xpath): 输入元素 
+一个控制器必须包含一个run()方法，该方法运行该控制的主测试逻辑，在程序运行时将自动运行该方法。
+
+下面是一个`run`方法，运行了页面上的输入框输入和按钮点击
+
+```python
+from core.Controller import Controller
+from app.page.Login import Login as LoginPage
+
+@Controller.controller_register('search')
+class Search():
+    driver = ''
+
+    # 初始化注入浏览器实例
+    def __init__(self, driver):
+        self.driver = driver
+
+    # 主测试流程
+    def run(self):
+        # 使用页面必须传入driver实例
+        loginPage = LoginPage(self.driver)
+        loginPage.input('search_input')
+        loginPage.click('search_btn')
+
+```
+
+### 页面
+
+框架的模型层，框架设计中，对项目的每个页面建立一个实体类，该实体类继承于BasePage。用于便捷的操作页面上元素，与测试逻辑控制层分离。
+
+一个典型的`login`模型类如下：
 
 ```python
 from core.BasePage import BasePage
 
-
-class login(BasePage):
-
-    _URL = '/'
-
+class Login(BasePage):
+	# 【基本结构】页面路径
+    _URL = '/login'
+	
+    # 【基本结构】页面元素的xpath路径
     _XPATH = {
-        'login_model_btn': '//*[@id="s-top-loginbtn"]',
-        'search_input': '//*[@id="kw"]',
-        'search_btn': '//*[@id="su"]',
-        'username': '//*[@id="TANGRAM__PSP_11__userName"]',
-        'password': '//*[@id="TANGRAM__PSP_11__password"]',
+        'username_input': '//*[@id="TANGRAM__PSP_11__userName"]',
+        'password_input': '//*[@id="TANGRAM__PSP_11__password"]',
         'login_btn': '//*[@id="TANGRAM__PSP_11__submit"]',
     }
 
+    # 【基本结构】表单所用数据
     _DATA = {
-        'search_keyword': '国庆节快乐',
-        'username': '****',
-        'password': '****',
-        'search_input': 'python框架'
+        'username_input': '******',
+        'password_input': '******',
     }
     
-    # 自定义方法，被控制器所访问。封装页面行为
+    # 复杂页面逻辑可编写方法，供控制器调用，简单的可直接通过控制器操作页面
     def test(self):
-        self.click('login_model_btn')
-        # 会自动获取 _XPATH中的search_keyword，和填入_DATA中search_keyword的数据
-        self.input('search_keyword')
-        
+        self.input('username_input')
+        self.input('password_input')
+        self.click('login_btn')
+
+
 ```
 
-## config
-配置文件
+一个典型的模型类，必须传递driver实例，用于操作页面元素
 
-## 使用
+继承与BasePage，包含三个父类方法
 
-控制器目录：/app/controller    
-页面： /app/page    
-windows脚本：用于操作上传等复杂事务 /autolt    
-配置类：config.py    
-入口执行文件：run.py 
+- xpath(xpath)：获取页面dom，操作的xpath需要在页面`_XPATH`中定义
+
+- click(xpath)：点击页面上的xpath
+
+- input(self, xpath, data='')：查找元素并填入参数。data为空时会传入定义的同名参数值
+
+  
+
+包含三个数据配置项
+
+- _URL：string，该页面的路径，示例话当前页面模型时，会检查是否为该页面，不是将会跳转到该页面
+- _XPATH：{}，定义该页面需要操作的元素的xpath，用于之后方便使用，操作页面都需要在此处定义才能操作  
+- _DATA：{}，页面须填写数据定义，使用input(xpath)时，将在此寻找与xpath的同名参数值
+
+### autolt
+
+用于解决上传文件/图片等与操作系统交互的复杂动作自动化
+
+[autolt官网](https://www.autoitscript.com/site/autoit/)
+
+实例：[AutoIt实现图片上传](https://blog.csdn.net/wuyepiaoxue789/article/details/90696199)
+
+
+
+## 示例
+
+项目自带一个百度搜索的实例，可参照修改
+
+## 问题
+
+
+
+## 修改日志
+
+[2021-10-26] 配置文件中添加`initial_path`参数，用于打开项目非域名初始页面
+
+
+
+## 联系作者
+
+邮箱：dnqxz@outlook.com
 
 
 
