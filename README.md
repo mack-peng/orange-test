@@ -55,8 +55,8 @@ project 项目目录
 │  ├─controller         控制器目录
 │  │  ├─__init__.py     流程控制列表
 │  ├─page         		页面目录
-│  ├─__init__.py       自动加载逻辑(勿动)
-│  ├─main.py       	主流程文件(勿动)
+│  ├─__init__.py        自动加载逻辑(勿动)
+│  ├─main.py       	    主流程文件(勿动)
 ├─autolt                windows脚本
 ├─core                  核心文件目录
 │  ├─BasePage.py        页面操作基类
