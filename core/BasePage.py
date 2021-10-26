@@ -11,7 +11,7 @@ class BasePage:
     def __init__(self, driver):
         url = self._URL
         current_page_url = driver.current_url
-        # 该页面的基础utl
+        # 判断当前url与目标页面url是否一致
         if current_page_url.rfind(url) == -1:
             driver.get(self.base_url + url)
             time.sleep(2)
