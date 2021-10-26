@@ -20,32 +20,33 @@
 &nbsp;&nbsp;|-- __init__.py 控制执行时的顺序与需要执行的模块  
 &nbsp;&nbsp;|-- controller 业务控制类  
 &nbsp;&nbsp;|-- page 页面实体类
-main.py 入口文件  
-config.py 配置文件所在位置
+main.py 入口文件
+config.py 配置文件
 
 ##### /app/controller/__init__.py 说明
-改文件在添加了控制器后需要在其中添加该控制器模块名，然后依该数组顺序的顺序执行，登录等前置操作放到最前
+该文件在添加了控制器后需要在其中添加该控制器模块名，然后依该数组顺序的顺序执行，登录等前置操作放到最前
 ```python
 __all__ = ['index', 'login', 'search']
 ```
 
 ## controller
 controller 是框架的控制器层（逻辑层），主要用于跨页面调用逻辑，简单逻辑也可直接写在controller层中
-
-添加新的controller,需要添加修饰器注册
 ```python
 from core.Controller import Controller
 
+# 添加新的controller,需要添加修饰器注册
 @Controller.controller_register('search')
 class search():
     pass
-```
-添加初始化方法，向类中添加driver，driver在run
-```python
-driver = ''
 
-def __init__(self, driver):
-    self.driver = driver
+    driver = ''
+    # 添加初始化方法，向类中添加driver实例
+    def __init__(self, driver):
+        self.driver = driver
+    
+    # 主逻辑编写函数，run在程序运行时会自动执行
+    def run(self):
+        pass
 ```
 
 ## page
@@ -58,8 +59,42 @@ _DATA: {},定义该页面需要填报的数据，用于表单或输入框
 唯一参数：传入selenium driver浏览器对象  
 可使用的方法：  
 以下参数xpath都是page实体类中_XPATH中定义的key  
-xpath(xpath=''):获取该页面的实体，返回selenium element对象  
-click(xpath):点击该元素  
+- 封装的父类方法，可直接使用
+    - self.xpath(xpath=''): 获取该页面的实体，返回selenium element对象  
+    - self.click(xpath): 点击该元素
+    - self.input(xpath): 输入元素 
+
+```python
+from core.BasePage import BasePage
+
+
+class login(BasePage):
+
+    _URL = '/'
+
+    _XPATH = {
+        'login_model_btn': '//*[@id="s-top-loginbtn"]',
+        'search_input': '//*[@id="kw"]',
+        'search_btn': '//*[@id="su"]',
+        'username': '//*[@id="TANGRAM__PSP_11__userName"]',
+        'password': '//*[@id="TANGRAM__PSP_11__password"]',
+        'login_btn': '//*[@id="TANGRAM__PSP_11__submit"]',
+    }
+
+    _DATA = {
+        'search_keyword': '国庆节快乐',
+        'username': '****',
+        'password': '****',
+        'search_input': 'python框架'
+    }
+    
+    # 自定义方法，被控制器所访问。封装页面行为
+    def test(self):
+        self.click('login_model_btn')
+        # 会自动获取 _XPATH中的search_keyword，和填入_DATA中search_keyword的数据
+        self.input('search_keyword')
+        
+```
 
 ## config
 配置文件
