@@ -42,7 +42,9 @@ git clone git@github.com:dnqxj/test-cli.git TestCLI
 
 ### 开发规范
 
-遵循Python开发规范
+命名遵循Python开发规范
+
+开发时，用户仅需关注`controller`和`page`目录文件即可
 
 ### 目录结构
 
@@ -216,7 +218,7 @@ class Login(BasePage):
 
 ## 问题
 
-
+核心文件与开发目录混杂，初学者会有困惑。关注控制器和模型层即可
 
 ## 修改日志
 
