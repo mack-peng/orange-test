@@ -2,7 +2,7 @@ import time
 import config
 from selenium import webdriver
 from core.Controller import Controller
-
+# 主运行文件（勿动）
 class main():
 
     driver = ''
