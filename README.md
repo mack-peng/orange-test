@@ -100,11 +100,12 @@ __all__ = ['index', 'login', 'search']
 ```python
 from core.Controller import Controller
 
-# 必须使用修饰器注册controller
+# 使用修饰器注册控制器
 @Controller.controller_register('Index')
 class Index():
     driver = ''
-
+    
+	# 初始化注入浏览器实例
     def __init__(self, driver):
         self.driver = driver
 
@@ -115,14 +116,15 @@ class Index():
 
 ### 操作
 
-一个控制器必须包含一个run()方法，该方法运行该控制的主测试逻辑，在程序运行时将自动运行该方法。
+一个控制器必须包含一个`run()`方法，该方法是控制器的主测试流程，在程序运行时将自动运行该方法。
 
-下面是一个`run`方法，运行了页面上的输入框输入和按钮点击
+下面是一个`run()`方法，运行了`LoginPage`页面上的输入框输入和按钮点击
 
 ```python
 from core.Controller import Controller
 from app.page.Login import Login as LoginPage
 
+# 使用修饰器注册控制器
 @Controller.controller_register('search')
 class Search():
     driver = ''
@@ -176,7 +178,7 @@ class Login(BasePage):
 
 ```
 
-一个典型的模型类，必须传递driver实例，用于操作页面元素
+使用页面模型时，必须传递driver实例，用于操作页面元素
 
 ```python
  def run(self):
@@ -186,21 +188,21 @@ class Login(BasePage):
 
 
 
-继承与BasePage，包含三个父类方法
+页面模型继承于`BasePage`，包含三个父类方法，传递的xpath都为在模型中定义的_XPATH对象名称
 
-- xpath(xpath)：获取页面dom，操作的xpath需要在页面`_XPATH`中定义
+- xpath(xpath)：获取页面dom
 
-- click(xpath)：点击页面上的xpath
+- click(xpath)：点击该xpath元素
 
-- input(self, xpath, data='')：查找元素并填入参数。data为空时会传入定义的同名参数值
+- input(self, xpath, data='')：查找元素并填入参数。data为空时会传入_DATA中定义的同名对象值
 
   
 
 包含三个数据配置项
 
-- _URL：string，该页面的路径，示例话当前页面模型时，会检查是否为该页面，不是将会跳转到该页面
+- _URL：string，该页面的路径，实例化该页面模型时，会检查是否为该页面，不是将会跳转到该页面
 - _XPATH：{}，定义该页面需要操作的元素的xpath，用于之后方便使用，操作页面都需要在此处定义才能操作  
-- _DATA：{}，页面须填写数据定义，使用input(xpath)时，将在此寻找与xpath的同名参数值
+- _DATA：{}，表单填写数据定义，使用input(xpath)时，将在此寻找与xpath的同名对象参数值
 
 ### autolt
 
