@@ -32,11 +32,9 @@ git clone git@github.com:dnqxj/test-cli.git TestCLI
 
 #### Chrome Driver 下载
 
-```
 [selenium和chromedriver下载使用](https://www.cnblogs.com/lfri/p/10542797.html)
-```
 
-将下载好的chrome driver放到磁盘某一目录，修改项目根目录下的配置文件（config.py)。中的app.chrome_path。修改为自己chrome driver的位置。
+将下载好的chrome driver放到磁盘某一目录，修改项目根目录下的配置文件（//config.py)。中的app.chrome_path。修改为自己chrome driver的位置。
 
 #### 运行demo
 
@@ -100,7 +98,7 @@ __all__ = ['index', 'login', 'search']
 ```python
 from core.Controller import Controller
 
-# 修饰器注册controller
+# 必须使用修饰器注册controller
 @Controller.controller_register('Index')
 class Index():
     driver = ''
@@ -149,6 +147,7 @@ class Search():
 ```python
 from core.BasePage import BasePage
 
+# 继承BasePage
 class Login(BasePage):
 	# 【基本结构】页面路径
     _URL = '/login'
@@ -177,6 +176,14 @@ class Login(BasePage):
 
 一个典型的模型类，必须传递driver实例，用于操作页面元素
 
+```python
+ def run(self):
+        # 使用页面必须传入driver实例
+        loginPage = LoginPage(self.driver)
+```
+
+
+
 继承与BasePage，包含三个父类方法
 
 - xpath(xpath)：获取页面dom，操作的xpath需要在页面`_XPATH`中定义
@@ -199,9 +206,9 @@ class Login(BasePage):
 
 [autolt官网](https://www.autoitscript.com/site/autoit/)
 
-实例：[AutoIt实现图片上传](https://blog.csdn.net/wuyepiaoxue789/article/details/90696199)
+示例：
 
-
+[python+autoit 实现网页文件上传 - 简书 (jianshu.com)](https://www.jianshu.com/p/007a243bf096)
 
 ## 示例
 
