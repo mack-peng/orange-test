@@ -38,12 +38,12 @@ class BasePage:
 
     # 基本的输入方法
     # xpath:page中定义的_XPATH.key
-    # data:page中定义的_DATA.key
+    # data:自定义输入框数据
     # 如果data不填，那么将使用与xpath同名的_DATA.key
     def input(self, xpath, data=''):
         ele = self.xpath(xpath)
         if data:
-            ele.send_keys(self._DATA[data])
+            ele.send_keys(data)
         else:
             ele.send_keys(self._DATA[xpath])
 
