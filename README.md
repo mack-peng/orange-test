@@ -188,14 +188,15 @@ class Login(BasePage):
 
 
 
-页面模型继承于`BasePage`，包含三个父类方法，传递的xpath都为在模型中定义的_XPATH对象名称
+页面模型继承于`BasePage`，包含以下父类方法，传递的xpath都为在模型中定义的_XPATH对象名称
 
 - xpath(xpath)：获取页面dom
 
 - click(xpath)：点击该xpath元素
 
-- input(self, xpath, data='')：查找元素并填入参数。data为空时会传入_DATA中定义的同名对象值
+- input(xpath, data='')：查找元素并填入参数。data为空时会传入_DATA中定义的同名对象值
 
+- select(selectXpath, optionXpath, _sleep=0.4)：点击页面下拉方法，传入两个xpath。间隔时间默认0.4s
   
 
 包含三个数据配置项
