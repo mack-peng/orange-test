@@ -47,4 +47,13 @@ class BasePage:
         else:
             ele.send_keys(self._DATA[xpath])
 
+    # 选择select，传入两个元素xpath
+    def select(self, selectXpath, optionXpath='', _sleep=0.4):
+        selectEle = self.xpath(selectXpath)
+        selectEle.click()
+        time.sleep(_sleep)
+
+        if optionXpath:
+            optionEle = self.xpath(optionXpath)
+            optionEle.click()
 
