@@ -82,6 +82,32 @@ app 配置`//config.py`
 | window_width  | 窗口的宽度                                              |
 | window_height | 窗口的高度                                              |
 
+header 配置//config.py
+
+对象列表方式配置
+
+```python
+headers = [
+    {
+        'name': 'Token',
+        'value': 'c1ef4ec49c059ec870478a4fc9d8a66d'
+    }
+]
+```
+
+cookie配置//config.py
+
+对象列表方式配置
+
+```python
+cookies = [
+    {
+        'name': 'user',
+        'value': 'admin'
+    }
+]
+```
+
 运行流程配置 `app/controller/__init__.py`
 
 ```python
@@ -225,9 +251,13 @@ class Login(BasePage):
 ## 更新日志
 
 [2021-10-26] 配置文件中添加`initial_path`参数，用于打开项目非域名初始页面
+
 [2021-11-01] 配置文件中添加`header`，`cookies`配置，项目运行时将携带
+
 [2021-11-01] 新增主程序隐式等待配置，默认 10s，可配置(app.implicitly_wait)
+
 [2021-11-01] 配置文件中添加`header`，`cookies`配置，项目运行时将携带
+
 [2021-11-01] 页面模型基类新增`select_down`方法，用于处理非 select 下拉选择
 
 ## 联系作者
