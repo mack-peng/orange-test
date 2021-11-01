@@ -1,4 +1,4 @@
-from core.Controller import Controller
+from core.controller import Controller
 from app.page.index import Index as IndexPage
 
 # 使用该修饰对控制器进行注册

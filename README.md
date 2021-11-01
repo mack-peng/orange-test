@@ -59,8 +59,9 @@ project 项目目录
 │  ├─main.py       	    主流程文件(勿动)
 ├─autolt                windows脚本
 ├─core                  核心文件目录
-│  ├─BasePage.py        页面操作基类
-│  ├─Controller.py      控制器基类
+│  ├─page_model.py      页面操作基类
+│  ├─controller.py      控制器基类
+│  ├─error_handler.py   错误处理类
 ├─config.py             项目配置文件
 ├─LICENSE.txt           授权说明文件
 ├─README.md             README 文件
@@ -75,6 +76,7 @@ app 配置`//config.py`
 
 | 配置参数      | 描述                                                    |
 | :------------ | ------------------------------------------------------- |
+| debug         | 为True时将抛出错误，False将会略过错误，显示到控制台     |
 | base_url      | 项目域名地址                                            |
 | initial_path  | 初始化打开地址路径，默认空，打开项目域名                |
 | device_name   | 手机端设备配置，eg.iPhone 6/7/8，参照谷歌浏览器设备配置 |
@@ -124,14 +126,15 @@ __all__ = ['index', 'login', 'search']
 一个典型的`Index`控制器类如下：
 
 ```python
-from core.Controller import Controller
+from core.controller import Controller
+
 
 # 使用修饰器注册控制器
 @Controller.controller_register('Index')
 class Index():
     driver = ''
 
-	# 初始化注入浏览器实例
+    # 初始化注入浏览器实例
     def __init__(self, driver):
         self.driver = driver
 
@@ -147,8 +150,9 @@ class Index():
 下面是一个`run()`方法，运行了`LoginPage`页面上的输入框输入和按钮点击
 
 ```python
-from core.Controller import Controller
+from core.controller import Controller
 from app.page.Login import Login as LoginPage
+
 
 # 使用修饰器注册控制器
 @Controller.controller_register('search')
@@ -170,16 +174,17 @@ class Search():
 
 ### 页面
 
-框架的模型层，框架设计中，对项目的每个页面建立一个实体类，该实体类继承于 BasePage。用于便捷的操作页面上元素，与测试逻辑控制层分离。
+框架的模型层，框架设计中，对项目的每个页面建立一个实体类，该实体类继承于 PageModel。用于便捷的操作页面上元素，与测试逻辑控制层分离。
 
 一个典型的`login`模型类如下：
 
 ```python
-from core.BasePage import BasePage
+from core.page_model import PageModel
 
-# 继承BasePage
-class Login(BasePage):
-	# 【基本结构】页面路径
+
+# 继承PageModel
+class Login(PageModel):
+    # 【基本结构】页面路径
     _URL = '/login'
 
     # 【基本结构】页面元素的xpath路径
@@ -212,7 +217,7 @@ class Login(BasePage):
         loginPage = LoginPage(self.driver)
 ```
 
-页面模型继承于`BasePage`，包含以下父类方法，传递的 xpath 都为在模型中定义的\_XPATH 对象名称
+页面模型继承于`PageModel`，包含以下父类方法，传递的 xpath 都为在模型中定义的\_XPATH 对象名称
 
 - xpath(xpath)：获取页面 dom
 
@@ -229,6 +234,10 @@ class Login(BasePage):
 - \_URL：string，该页面的路径，实例化该页面模型时，会检查是否为该页面，不是将会跳转到该页面
 - \_XPATH：{}，定义该页面需要操作的元素的 xpath，用于之后方便使用，操作页面都需要在此处定义才能操作
 - \_DATA：{}，表单填写数据定义，使用 input(xpath)时，将在此寻找与 xpath 的同名对象参数值
+
+### 错误处理
+
+框架的错误处理类，文件在`core/error_handler`。用于格式化显示错误。配置`app.debug`为True时，将抛出错误。为False时将略过错误。将错误显示在控制台
 
 ### autolt
 
