@@ -1,12 +1,12 @@
 # TestCLI
 
-基于selenium框架的脚手架，将测试流程变得结构化，工程化
+基于 selenium 框架的脚手架，将测试流程变得结构化，工程化
 
-----------------
+---
 
 ## 序言
 
-TestCLI是基于selenium框架的脚手架。应对复杂工程的利器，摆脱原有自动化测试代码编写混乱，不好维护的弊病。通过框架，让测试程序开发人员专注于业务逻辑。致力于测试流程模块化，低耦合，多人共同编写维护。互不影响且能统一测试。遵循`Apache2`开源许可协议发布，意味着你可以免费使用TestCLI，甚至允许把你基于TestCLI开发的应用开源或商业产品发布/销售
+TestCLI 是基于 selenium 框架的脚手架。应对复杂工程的利器，摆脱原有自动化测试代码编写混乱，不好维护的弊病。通过框架，让测试程序开发人员专注于业务逻辑。致力于测试流程模块化，低耦合，多人共同编写维护。互不影响且能统一测试。遵循`Apache2`开源许可协议发布，意味着你可以免费使用 TestCLI，甚至允许把你基于 TestCLI 开发的应用开源或商业产品发布/销售
 
 ## 基础
 
@@ -19,9 +19,9 @@ TestCLI是基于selenium框架的脚手架。应对复杂工程的利器，摆�
 > - 谷歌浏览器
 > - Chrome Driver
 
-TestCLI无需安装，下载源代码，在以上环境OK的情况下便可运行
+TestCLI 无需安装，下载源代码，在以上环境 OK 的情况下便可运行
 
-#### Git安装
+#### Git 安装
 
 ```
 
@@ -32,17 +32,17 @@ git clone git@github.com:dnqxj/test-cli.git TestCLI
 
 #### Chrome Driver 下载
 
-[selenium和chromedriver下载使用](https://www.cnblogs.com/lfri/p/10542797.html)
+[selenium 和 chromedriver 下载使用](https://www.cnblogs.com/lfri/p/10542797.html)
 
-将下载好的chrome driver放到磁盘某一目录，修改项目根目录下的配置文件（//config.py)。中的app.chrome_path。修改为自己chrome driver的位置。
+将下载好的 chrome driver 放到磁盘某一目录，修改项目根目录下的配置文件（//config.py)。中的 app.chrome_path。修改为自己 chrome driver 的位置。
 
-#### 运行demo
+#### 运行 demo
 
-使用python执行根目录下的run.py
+使用 python 执行根目录下的 run.py
 
 ### 开发规范
 
-命名遵循Python开发规范
+命名遵循 Python 开发规范
 
 开发时，用户仅需关注`controller`和`page`目录文件即可
 
@@ -69,16 +69,16 @@ project 项目目录
 
 ### 配置
 
-主配置文件在项目根目录下的config.py文件
+主配置文件在项目根目录下的 config.py 文件
 
-app配置`//config.py`
+app 配置`//config.py`
 
 | 配置参数      | 描述                                                    |
 | :------------ | ------------------------------------------------------- |
 | base_url      | 项目域名地址                                            |
 | initial_path  | 初始化打开地址路径，默认空，打开项目域名                |
 | device_name   | 手机端设备配置，eg.iPhone 6/7/8，参照谷歌浏览器设备配置 |
-| chrome_path   | chrome driver在电脑中的绝对路径                         |
+| chrome_path   | chrome driver 在电脑中的绝对路径                        |
 | window_width  | 窗口的宽度                                              |
 | window_height | 窗口的高度                                              |
 
@@ -104,7 +104,7 @@ from core.Controller import Controller
 @Controller.controller_register('Index')
 class Index():
     driver = ''
-    
+
 	# 初始化注入浏览器实例
     def __init__(self, driver):
         self.driver = driver
@@ -144,7 +144,7 @@ class Search():
 
 ### 页面
 
-框架的模型层，框架设计中，对项目的每个页面建立一个实体类，该实体类继承于BasePage。用于便捷的操作页面上元素，与测试逻辑控制层分离。
+框架的模型层，框架设计中，对项目的每个页面建立一个实体类，该实体类继承于 BasePage。用于便捷的操作页面上元素，与测试逻辑控制层分离。
 
 一个典型的`login`模型类如下：
 
@@ -155,7 +155,7 @@ from core.BasePage import BasePage
 class Login(BasePage):
 	# 【基本结构】页面路径
     _URL = '/login'
-	
+
     # 【基本结构】页面元素的xpath路径
     _XPATH = {
         'username_input': '//*[@id="TANGRAM__PSP_11__userName"]',
@@ -168,7 +168,7 @@ class Login(BasePage):
         'username_input': '******',
         'password_input': '******',
     }
-    
+
     # 复杂页面逻辑可编写方法，供控制器调用，简单的可直接通过控制器操作页面
     def test(self):
         self.input('username_input')
@@ -178,7 +178,7 @@ class Login(BasePage):
 
 ```
 
-使用页面模型时，必须传递driver实例，用于操作页面元素
+使用页面模型时，必须传递 driver 实例，用于操作页面元素
 
 ```python
  def run(self):
@@ -186,30 +186,29 @@ class Login(BasePage):
         loginPage = LoginPage(self.driver)
 ```
 
+页面模型继承于`BasePage`，包含以下父类方法，传递的 xpath 都为在模型中定义的\_XPATH 对象名称
 
+- xpath(xpath)：获取页面 dom
 
-页面模型继承于`BasePage`，包含以下父类方法，传递的xpath都为在模型中定义的_XPATH对象名称
+- click(xpath)：点击该 xpath 元素
 
-- xpath(xpath)：获取页面dom
+- input(xpath, data='')：查找元素并填入参数。data 为空时会传入\_DATA 中定义的同名对象值
 
-- click(xpath)：点击该xpath元素
+- select(selectXpath, optionXpath, \_sleep=0.6)：点击页面下拉方法，传入两个 xpath。间隔时间默认 0.6s
 
-- input(xpath, data='')：查找元素并填入参数。data为空时会传入_DATA中定义的同名对象值
-
-- select(selectXpath, optionXpath, _sleep=0.4)：点击页面下拉方法，传入两个xpath。间隔时间默认0.4s
-  
+- select_down(selectXpath, downCount=1, \_sleep=0.3)：用于处理非 select 下拉选项，传入下拉元素的 xpath 即可，downCount：选择第几项。默认延时0.3s
 
 包含三个数据配置项
 
-- _URL：string，该页面的路径，实例化该页面模型时，会检查是否为该页面，不是将会跳转到该页面
-- _XPATH：{}，定义该页面需要操作的元素的xpath，用于之后方便使用，操作页面都需要在此处定义才能操作  
-- _DATA：{}，表单填写数据定义，使用input(xpath)时，将在此寻找与xpath的同名对象参数值
+- \_URL：string，该页面的路径，实例化该页面模型时，会检查是否为该页面，不是将会跳转到该页面
+- \_XPATH：{}，定义该页面需要操作的元素的 xpath，用于之后方便使用，操作页面都需要在此处定义才能操作
+- \_DATA：{}，表单填写数据定义，使用 input(xpath)时，将在此寻找与 xpath 的同名对象参数值
 
 ### autolt
 
 用于解决上传文件/图片等与操作系统交互的复杂动作自动化
 
-[autolt官网](https://www.autoitscript.com/site/autoit/)
+[autolt 官网](https://www.autoitscript.com/site/autoit/)
 
 示例：
 
@@ -223,15 +222,14 @@ class Login(BasePage):
 
 核心文件与开发目录混杂，初学者会有困惑。关注控制器和模型层即可
 
-## 修改日志
+## 更新日志
 
 [2021-10-26] 配置文件中添加`initial_path`参数，用于打开项目非域名初始页面
-
-
+[2021-11-01] 配置文件中添加`header`，`cookies`配置，项目运行时将携带
+[2021-11-01] 新增主程序隐式等待配置，默认 10s，可配置(app.implicitly_wait)
+[2021-11-01] 配置文件中添加`header`，`cookies`配置，项目运行时将携带
+[2021-11-01] 页面模型基类新增`select_down`方法，用于处理非 select 下拉选择
 
 ## 联系作者
 
 邮箱：dnqxz@outlook.com
-
-
-
