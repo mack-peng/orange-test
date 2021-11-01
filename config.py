@@ -1,5 +1,4 @@
-DEBUG=True
-
+# 应用配置
 app = {
     # 为True时将抛出错误，False将会略过错误，显示到控制台
     'debug': False,
