@@ -213,8 +213,8 @@ class Login(PageModel):
 
 ```python
  def run(self):
-        # 使用页面必须传入driver实例
-        loginPage = LoginPage(self.driver)
+     # 使用页面必须传入driver实例
+     loginPage = LoginPage(self.driver)
 ```
 
 页面模型继承于`PageModel`，包含以下父类方法，传递的 xpath 都为在模型中定义的\_XPATH 对象名称
