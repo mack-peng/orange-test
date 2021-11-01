@@ -1,8 +1,9 @@
 import time
 import config
 from selenium.webdriver.common.keys import Keys
+from core.error_handler import ErrorHandler
 
-class BasePage:
+class PageModel:
     base_url = config.app['base_url']
     driver = ''
     _URL = ''
@@ -20,19 +21,32 @@ class BasePage:
         # assert currentPageUrl == "https://www.baidu.com/", "当前网页网址非预期！"
         self.driver = driver
 
-    # 封装常用方法
-    def xpath(self, xpath):
+    # 私有方法：用于获取xpath，用于错误处理
+    def _get_xpath(self, xpath):
         if xpath in self._XPATH:
-            _xpath = self._XPATH[xpath]
+            return self._XPATH[xpath]
+        else:
+            return ErrorHandler(xpath, '_XPATH中未定义该属性')
+
+        # 私有方法：用于获取xpath，用于错误处理
+    def _get_data(self, data):
+        if data in self._DATA:
+            return self._DATA[data]
+        else:
+            return ErrorHandler(data, '_DATA中未定义该属性')
+
+    # xpath获取元素，提前定义到page模型中
+    def xpath(self, xpath):
+        _xpath = self._get_xpath(xpath)
+        # 判断是否为错误处理类的实例
+        if not isinstance(_xpath, ErrorHandler):
             try:
                 ele = self.driver.find_element_by_xpath(_xpath)
                 return ele
             except:
-                print("错误：元素未找到，key:" + xpath)
-                # raise Exception("元素未找到，key:" + xpath)
-
+                return ErrorHandler(xpath, '在页面上未找到该元素')
         else:
-            raise Exception("page中未定义该xpath")
+            return _xpath
 
     def click(self, xpath):
         self.xpath(xpath).click()
@@ -40,14 +54,14 @@ class BasePage:
 
     # 基本的输入方法
     # xpath:page中定义的_XPATH.key
-    # data:page中定义的_DATA.key
+    # data:填入输入框的数据
     # 如果data不填，那么将使用与xpath同名的_DATA.key
     def input(self, xpath, data=''):
         ele = self.xpath(xpath)
         if data:
-            ele.send_keys(self._DATA[data])
+            ele.send_keys(data)
         else:
-            ele.send_keys(self._DATA[xpath])
+            ele.send_keys(self._get_data(xpath))
 
     # 选择select，传入两个元素xpath，用于常规select
     def select(self, selectXpath, optionXpath='', _sleep=0.6):
