@@ -7,7 +7,7 @@ class main():
 
     driver = ''
     base_url = config.app['base_url']
-    initial_url = config.app['initial_url']
+    initial_path = config.app['initial_path']
     device_name = config.app['device_name']
     chrome_path = config.app['chrome_path']
     window_width = config.app['window_width']
@@ -39,7 +39,7 @@ class main():
 
         # 隐式等待10s
         driver.implicitly_wait(self.implicitly_wait)
-        driver.get(self.base_url + self.initial_url)
+        driver.get(self.base_url + self.initial_path)
         # 添加cookie
         for cookie in self.cookies:
             driver.add_cookie(cookie)
