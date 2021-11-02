@@ -220,13 +220,10 @@ class Login(PageModel):
 页面模型继承于`PageModel`，包含以下父类方法，传递的 xpath 都为在模型中定义的\_XPATH 对象名称
 
 - xpath(xpath)：获取页面 dom
-
-- click(xpath)：点击该 xpath 元素
-
+- click(xpath,   \_sleep=2)：点击该 xpath 元素，延时默认2s
 - input(xpath, data='')：查找元素并填入参数。data 为空时会传入\_DATA 中定义的同名对象值
-
+- input_random(self, xpath, num=5, prefix='')：向页面输入框元素填入随机字符串，可指定字符长度和前缀
 - select(selectXpath, optionXpath, \_sleep=0.6)：点击页面下拉方法，传入两个 xpath。间隔时间默认 0.6s
-
 - select_down(selectXpath, downCount=1, \_sleep=0.3)：用于处理非 select 下拉选项，传入下拉元素的 xpath 即可，downCount：选择第几项。默认延时0.3s
 
 包含三个数据配置项
@@ -276,6 +273,8 @@ class Login(PageModel):
 [2021-11-02] 添加框架错误处理类ErrorHandler。用于处理框架中抛出的错误
 
 [2021-11-02] 新增app.debug配置。用于配置是否为调试模式。涉及到错误处理
+
+[2021-11-02] PageModel添加`input_random`方法，用于处理向输入框填入随机字符串
 
 ## 联系作者
 
