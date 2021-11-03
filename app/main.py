@@ -2,6 +2,8 @@ import time
 import config
 from selenium import webdriver
 from core.controller import Controller
+from core.data_handler import DataHandler
+
 # 主运行文件（勿动）
 class main():
 
@@ -48,6 +50,10 @@ class main():
 
     # 执行所有控制器的run方法
     def run(self):
+        # 清空数据库
+        dataHandler = DataHandler()
+        dataHandler.clear()
+        # 运行主测试程序
         controller = Controller()
         controller.run(self.driver)
 

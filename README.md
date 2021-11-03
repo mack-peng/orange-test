@@ -236,6 +236,10 @@ class Login(PageModel):
 
 框架的错误处理类，文件在`core/error_handler`。用于格式化显示错误。配置`app.debug`为True时，将抛出错误。为False时将略过错误。将错误显示在控制台
 
+### 数据存储
+
+框架的数据存储类，文件在`core/data_handler`。使用json+文件存储方式管理项目运行数据。暂不开放给用户。用于框架内部使用
+
 ### autolt
 
 用于解决上传文件/图片等与操作系统交互的复杂动作自动化
@@ -275,6 +279,8 @@ class Login(PageModel):
 [2021-11-02] 新增app.debug配置。用于配置是否为调试模式。涉及到错误处理
 
 [2021-11-02] PageModel添加`input_random`方法，用于处理向输入框填入随机字符串
+
+[2021-11-03] 添加框架的数据存储类`core/data_handler`，用于框架运行时数据存储
 
 ## 联系作者
 

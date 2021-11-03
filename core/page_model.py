@@ -21,10 +21,11 @@ class PageModel:
         url = self._URL
         current_page_url = driver.current_url
         if current_page_url.rfind(url) == -1:
-            print(self.base_url + url)
             driver.get(self.base_url + url)
             time.sleep(2)
-        # assert currentPageUrl == "https://www.baidu.com/", "当前网页网址非预期！"
+        current_page_url = driver.current_url
+        if current_page_url.rfind(url) == -1:
+            ErrorHandler(url, '未切换到目标页面')
         self.driver = driver
 
     def xpath(self, xpath):
