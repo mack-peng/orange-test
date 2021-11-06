@@ -257,27 +257,35 @@ from core.data_handler import user_data_handler
 
 # 清空数据库
 user_data_handler.clear()
+
 # 查询数据，name: 数据键名，无数据将返回'None'
 user_data_handler.select(name)
+
 # 查询数据库所有数据
 user_data_handler.select_all()
+
 # 新增/更新数据,name：数据键名；value：数据
 user_data_handler.update(name, value)
+
 # 添加数据到数组中,name：数据键名；value：数组中的新数据
 user_data_handler.insert_arr(name, value)
+
 # 数据值自增
 user_data_handler.setInc(name)
+
 # 数据值自减
 user_data_handler.setDec(name)
+
 # 删除数据
 user_data_handler.delete(name)
+
 # 数据写入文件，持久化。
 user_data_handler.write(name)
 ```
 
 ### 控制台输出
 
-日志输出类，文件在`core/console`。管理向控制台输出日志的方法，对外提供单例console实例。用于同意格式化输出到控制台
+日志输出类，文件在`core/console`。管理向控制台输出日志的方法，对外提供单例console实例。用于统一格式化输出到控制台
 
 #### 配置
 
@@ -288,7 +296,7 @@ user_data_handler.write(name)
 ```python
 from core.console import console
 
-# 一般输出，无颜色
+# 一般输出，默认颜色
 console.info(message)
 
 # 调试输出，蓝色
