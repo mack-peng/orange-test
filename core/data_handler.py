@@ -35,16 +35,16 @@ class DataHandler:
     def select_all(self):
         return self._json_data
 
-    # 更新数组
+    # 新增/更新数据
+    def update(self, name, value):
+        self._json_data[name] = value
+
+    # 添加数据到数组中
     def insert_arr(self, name, value):
         json_data = self._json_data
         if name not in json_data:
             json_data[name] = []
         json_data[name].append(value)
-
-    # 更新字符串
-    def update(self, name, value):
-        self._json_data[name] = value
 
     # 数字值自增
     def setInc(self, name):
@@ -52,7 +52,7 @@ class DataHandler:
         if name not in json_data:
             json_data[name] = 0
         num = json_data[name]
-        json_data[name] = num + 1
+        json_data[name] = int(num) + 1
 
     # 数字值自减
     def setDec(self, name):
@@ -60,7 +60,7 @@ class DataHandler:
         if name not in json_data:
             json_data[name] = 0
         num = json_data[name]
-        json_data[name] = num - 1
+        json_data[name] = int(num) - 1
 
     # 删除dict对象
     def delete(self, name):

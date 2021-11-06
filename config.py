@@ -2,6 +2,8 @@
 app = {
     # 为True时将抛出错误，False将会略过错误，显示到控制台
     'debug': False,
+    # 日志级别，info,debug,warning,error
+    'console_level': 'info',
     # 基础url
     'base_url': 'https://www.baidu.com',
     # 初始化打开url path

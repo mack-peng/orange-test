@@ -59,9 +59,14 @@ project 项目目录
 │  ├─main.py       	    主流程文件(勿动)
 ├─autolt                windows脚本
 ├─core                  核心文件目录
-│  ├─page_model.py      页面操作基类
+│  ├─database           文件数据库目录
+│  │  ├─app.json        框架内部的json数据管理文件
+│  │  ├─user.json       用户可操作的json数据管理文件
 │  ├─controller.py      控制器基类
+│  ├─data_handler.py    数据处理类
 │  ├─error_handler.py   错误处理类
+│  ├─page_model.py      页面操作基类
+│  ├─report.py          报告处理类
 ├─config.py             项目配置文件
 ├─LICENSE.txt           授权说明文件
 ├─README.md             README 文件
@@ -77,6 +82,7 @@ app 配置`//config.py`
 | 配置参数      | 描述                                                    |
 | :------------ | ------------------------------------------------------- |
 | debug         | 为True时将抛出错误，False将会略过错误，显示到控制台     |
+| console_level | 日志级别，info,debug,warning,error                      |
 | base_url      | 项目域名地址                                            |
 | initial_path  | 初始化打开地址路径，默认空，打开项目域名                |
 | device_name   | 手机端设备配置，eg.iPhone 6/7/8，参照谷歌浏览器设备配置 |
@@ -238,7 +244,37 @@ class Login(PageModel):
 
 ### 数据存储
 
-框架的数据存储类，文件在`core/data_handler`。使用json+文件存储方式管理项目运行数据。暂不开放给用户。用于框架内部使用
+数据存储类，文件在`core/data_handler`。使用json+文件存储方式管理项目运行数据。全局单例模式，数据在框架运行时为单例模式，并且运行在内存中
+
+数据库存储方式为 key-value方式，存储结构为json对象
+
+用户使用方式
+
+```python
+# 导入，user_data_handler为数据操作的实例对象，可直接使用方法。操作数据
+from core.data_handler import user_data_handler
+
+# 清空数据库
+user_data_handler.clear()
+# 查询数据，name: 数据键名，无数据将返回'None'
+user_data_handler.select(name)
+# 查询数据库所有数据
+user_data_handler.select_all()
+# 新增/更新数据,name：数据键名；value：数据
+user_data_handler.update(name, value)
+# 添加数据到数组中,name：数据键名；value：数组中的新数据
+user_data_handler.insert_arr(name, value)
+# 数据值自增
+user_data_handler.setInc(name)
+# 数据值自减
+user_data_handler.setDec(name)
+# 删除数据
+user_data_handler.delete(name)
+# 数据写入文件，持久化。
+user_data_handler.write(name)
+```
+
+
 
 ### autolt
 
@@ -252,15 +288,11 @@ class Login(PageModel):
 
 ## 示例
 
-项目自带一个百度搜索的实例，可参照修改
+项目自带一个百度搜索的实例，可参考
 
 ## 问题
 
-一、核心文件与开发目录混杂，初学者会有困惑。关注控制器和模型层即可
-
-二、错误处理和生成测试报告
-
-
+一、测试报告的可视化
 
 ## 更新日志
 
@@ -281,6 +313,12 @@ class Login(PageModel):
 [2021-11-02] PageModel添加`input_random`方法，用于处理向输入框填入随机字符串
 
 [2021-11-03] 添加框架的数据存储类`core/data_handler`，用于框架运行时数据存储
+
+[2021-11-06]修改data_handler，通过抛出实例化对象的方式实现单例模式运行
+
+[2021-11-06]添加框架报告类core/report.py。用于运行后的报告
+
+[2021-11-06]配置文件新增配置项`app.console_level`，控制台输出级别info,debug,warning,error
 
 ## 联系作者
 

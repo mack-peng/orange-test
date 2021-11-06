@@ -1,4 +1,5 @@
 from core.data_handler import app_data_handler
+from core.console import console
 
 class Controller(object):
     _CONTROLLER = {}
@@ -6,6 +7,7 @@ class Controller(object):
     def run(self, driver, controller=()):
         if controller is ():
             for controller_name in self._CONTROLLER.keys():
+                console.info('执行控制器：{}'.format(controller_name))
                 app_data_handler.setInc('controller_num')
                 app_data_handler.insert_arr('controller_list', controller_name)
                 self._CONTROLLER[controller_name](driver).run()

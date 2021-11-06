@@ -1,6 +1,7 @@
 import time
 import config
 from core.data_handler import app_data_handler
+from core.console import console
 
 class ErrorHandler:
     """
@@ -14,9 +15,6 @@ class ErrorHandler:
 
     def __init__(self, name, desc):
         self._handler(name, desc)
-
-    def _now(self):
-        return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
     def _handler(self, name, desc):
         """
@@ -34,7 +32,7 @@ class ErrorHandler:
         if self.debug:
             raise Exception(error)
         else:
-            print(error)
+            console.error("{}:{}".format(name, desc))
 
     # 故意将错误发生后的执行集中到此处理
     def __getattr__(self, key):
