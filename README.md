@@ -241,7 +241,7 @@ class Login(PageModel):
 
 ### 错误处理
 
-框架的错误处理类，文件在`core/error_handler`。用于格式化显示错误。配置`app.debug`为True时，将抛出错误。为False时将略过错误。将错误显示在控制台
+框架的错误处理类，文件在`core/error_handler`。用于处理和显示错误。配置`app.debug`为True时，将抛出错误。为False时将略过错误。将错误显示在控制台
 
 ### 数据存储
 
