@@ -62,6 +62,7 @@ project 项目目录
 │  ├─database           文件数据库目录
 │  │  ├─app.json        框架内部的json数据管理文件
 │  │  ├─user.json       用户可操作的json数据管理文件
+│  ├─console.py         控制台输出类
 │  ├─controller.py      控制器基类
 │  ├─data_handler.py    数据处理类
 │  ├─error_handler.py   错误处理类
@@ -248,10 +249,10 @@ class Login(PageModel):
 
 数据库存储方式为 key-value方式，存储结构为json对象
 
-用户使用方式
+#### 用户使用
 
 ```python
-# 导入，user_data_handler为数据操作的实例对象，可直接使用方法。操作数据
+# 导入，user_data_handler为用户数据操作的实例对象，可直接使用方法。操作数据
 from core.data_handler import user_data_handler
 
 # 清空数据库
@@ -272,6 +273,32 @@ user_data_handler.setDec(name)
 user_data_handler.delete(name)
 # 数据写入文件，持久化。
 user_data_handler.write(name)
+```
+
+### 控制台输出
+
+日志输出类，文件在`core/console`。管理向控制台输出日志的方法，对外提供单例console实例。用于同意格式化输出到控制台
+
+#### 配置
+
+//config.py 中` app.console_level`，可配置为`info`，`debug`，`warning`，`error`，级别依次提升，将打印当前级别和更高级别输出
+
+#### 用户使用
+
+```python
+from core.console import console
+
+# 一般输出，无颜色
+console.info(message)
+
+# 调试输出，蓝色
+console.debug(message)
+
+# 警告输出，黄色
+console.warning(message)
+
+# 错误输出，红色
+console.error(message)
 ```
 
 
