@@ -1,4 +1,4 @@
-# TestCLI
+# OrangeTest
 
 基于 selenium 框架的脚手架，将测试流程变得结构化，工程化
 
@@ -6,28 +6,28 @@
 
 ## 序言
 
-TestCLI 是基于 selenium 框架的脚手架。应对复杂工程的利器，摆脱原有自动化测试代码编写混乱，不好维护的弊病。通过框架，让测试程序开发人员专注于业务逻辑。致力于测试流程模块化，低耦合，多人共同编写维护。互不影响且能统一测试。遵循`Apache2`开源许可协议发布，意味着你可以免费使用 TestCLI，甚至允许把你基于 TestCLI 开发的应用开源或商业产品发布/销售
+OrangeTest 是基于 selenium 框架的脚手架。应对复杂工程的利器，摆脱原有自动化测试代码编写混乱，不好维护的弊病。通过框架，让测试程序开发人员专注于业务逻辑。致力于测试流程模块化，低耦合，多人共同编写维护。互不影响且能统一测试。遵循`Apache2`开源许可协议发布，意味着你可以免费使用 OrangeTest，甚至允许把你基于 OrangeTest 开发的应用开源或商业产品发布/销售
 
 ## 基础
 
 ### 安装
 
-**TestCLI**的环境要求如下：
+**OrangeTest**的环境要求如下：
 
 > - Python3
 > - Selenium
 > - 谷歌浏览器
 > - Chrome Driver
 
-TestCLI 无需安装，下载源代码，在以上环境 OK 的情况下便可运行
+OrangeTest无需安装，下载源代码，在以上环境 OK 的情况下便可运行
 
 #### Git 安装
 
 ```
 
-项目地址：https://github.com/dnqxj/test-cli
+项目地址：https://github.com/dnqxj/orange-test
 
-git clone git@github.com:dnqxj/test-cli.git TestCLI
+git clone git@github.com:dnqxj/orange-test.git OrangeTest
 ```
 
 #### Chrome Driver 下载
