@@ -25,7 +25,7 @@ class ErrorHandler:
         :return: debug为False时显示错误在控制台
         :raise: debug为True时抛出错误
         """
-        error = "[{0}] 错误：{1}：{2}".format(self._now(), name, desc)
+        error = "错误：{1}：{2}".format(self._now(), name, desc)
         app_data_handler.setInc("error_num")
         app_data_handler.insert_arr("error_list", error)
         # 调试模式，抛出错误
