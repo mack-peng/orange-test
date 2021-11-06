@@ -1,9 +1,13 @@
+from core.data_handler import app_data_handler
+
 class Controller(object):
     _CONTROLLER = {}
 
     def run(self, driver, controller=()):
         if controller is ():
             for controller_name in self._CONTROLLER.keys():
+                app_data_handler.setInc('controller_num')
+                app_data_handler.insert_arr('controller_list', controller_name)
                 self._CONTROLLER[controller_name](driver).run()
         else:
             for controller_name in controller:

@@ -7,20 +7,30 @@ class DataHandler:
     _FILE_PATH = ""
     _json_data = {}
 
-    def __init__(self):
+    def __init__(self, database_name='app'):
+        self._DATABASE_NAME = database_name + '.json'
+
         current_dir = os.path.dirname(os.path.abspath(__file__))
         self._DATABASE_DIR = os.path.join(current_dir, 'database')
         file_path = os.path.join(self._DATABASE_DIR, self._DATABASE_NAME)
         self._FILE_PATH = file_path
+        # 如果文件不存在，创建并写入{}
+        if not os.path.exists(file_path):
+            self.clear()
         self._json_data = self._read(file_path)
 
     # 清空数据库
     def clear(self):
+        # 初始化类中管理的数据和文件数据
+        self._json_data = {}
         self._write(self._FILE_PATH, {})
 
     # 查询
     def select(self, name):
-        return self._json_data[name]
+        if name in self._json_data:
+            return self._json_data[name]
+        else:
+            return 'None'
 
     def select_all(self):
         return self._json_data
@@ -56,8 +66,8 @@ class DataHandler:
     def delete(self, name):
         self._json_data.pop(name)
 
-    # 执行完对数据的修改/新增/删除后需要执行close结束操作
-    def close(self):
+    # 数据写入文件，持久化。
+    def write(self):
         self._write(self._FILE_PATH, self._json_data)
 
     def _read(self, file_path):
@@ -70,3 +80,6 @@ class DataHandler:
         with open(file_path, 'w') as dump_f:
             json.dump(json_data, dump_f)
 
+# 单例模式
+app_data_handler = DataHandler('app')
+user_data_handler = DataHandler('user')

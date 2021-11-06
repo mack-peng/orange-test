@@ -3,6 +3,7 @@ import random
 import config
 from selenium.webdriver.common.keys import Keys
 from core.error_handler import ErrorHandler
+from core.data_handler import app_data_handler
 
 class PageModel:
     """
@@ -19,6 +20,8 @@ class PageModel:
 
     def __init__(self, driver):
         url = self._URL
+        app_data_handler.setInc("page_num")
+        app_data_handler.insert_arr("page_list", url)
         current_page_url = driver.current_url
         if current_page_url.rfind(url) == -1:
             driver.get(self.base_url + url)

@@ -2,7 +2,9 @@ import time
 import config
 from selenium import webdriver
 from core.controller import Controller
-from core.data_handler import DataHandler
+from core.data_handler import app_data_handler
+from core.data_handler import user_data_handler
+from core.report import Report
 
 # 主运行文件（勿动）
 class main():
@@ -51,10 +53,14 @@ class main():
     # 执行所有控制器的run方法
     def run(self):
         # 清空数据库
-        dataHandler = DataHandler()
-        dataHandler.clear()
+        app_data_handler.clear()
+        user_data_handler.clear()
         # 运行主测试程序
         controller = Controller()
         controller.run(self.driver)
-
+        # 运行中数据写入文件
+        app_data_handler.write()
+        user_data_handler.write()
+        report = Report()
+        report.show()
 

@@ -1,5 +1,6 @@
 import time
 import config
+from core.data_handler import app_data_handler
 
 class ErrorHandler:
     """
@@ -27,6 +28,8 @@ class ErrorHandler:
         :raise: debug为True时抛出错误
         """
         error = "[{0}] 错误：{1}：{2}".format(self._now(), name, desc)
+        app_data_handler.setInc("error_num")
+        app_data_handler.insert_arr("error_list", error)
         # 调试模式，抛出错误
         if self.debug:
             raise Exception(error)
