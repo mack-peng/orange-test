@@ -51,12 +51,12 @@ git clone git@github.com:dnqxj/orange-test.git OrangeTest
 project 项目目录
 
 ```
-├─app           		应用目录
+├─app                   应用目录
 │  ├─controller         控制器目录
 │  │  ├─__init__.py     流程控制列表
-│  ├─page         		页面目录
+│  ├─page               页面目录
 │  ├─__init__.py        自动加载逻辑(勿动)
-│  ├─main.py       	    主流程文件(勿动)
+│  ├─main.py            主流程文件(勿动)
 ├─autolt                windows脚本
 ├─core                  核心文件目录
 │  ├─database           文件数据库目录
