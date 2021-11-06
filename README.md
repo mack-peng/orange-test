@@ -349,11 +349,11 @@ console.error(message)
 
 [2021-11-03] 添加框架的数据存储类`core/data_handler`，用于框架运行时数据存储
 
-[2021-11-06]修改data_handler，通过抛出实例化对象的方式实现单例模式运行
+[2021-11-06] 修改data_handler，通过抛出实例化对象的方式实现单例模式运行
 
-[2021-11-06]添加框架报告类core/report.py。用于运行后的报告
+[2021-11-06] 添加框架报告类core/report.py。用于运行后的报告
 
-[2021-11-06]配置文件新增配置项`app.console_level`，控制台输出级别info,debug,warning,error
+[2021-11-06] 配置文件新增配置项`app.console_level`，控制台输出级别info,debug,warning,error
 
 ## 联系作者
 
