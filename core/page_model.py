@@ -21,7 +21,7 @@ class PageModel:
 
     def __init__(self, driver):
         url = self._URL
-        console.info('初始化页面：{}'.format(url))
+        console.info('运行页面模型：{}'.format(url))
         app_data_handler.setInc("page_num")
         app_data_handler.insert_arr("page_list", url)
         current_page_url = driver.current_url
