@@ -2,6 +2,11 @@ import os
 import json
 
 class DataHandler:
+    """
+    框架数据管理类
+
+    存储管理框架运行时的数据，提供增删改查功能
+    """
     _DATABASE_DIR = ""
     _DATABASE_NAME = 'app.json'
     _FILE_PATH = ""

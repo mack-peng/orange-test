@@ -2,6 +2,11 @@ import time
 import config
 
 class Console:
+    """
+    控制台统一输出类
+
+    用于格式化输出信息到控制台，拥有info,debug,warning,error四个等级的输出
+    """
     console_level = config.app['console_level']
     level_num = 2
 

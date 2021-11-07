@@ -2,6 +2,11 @@ from core.data_handler import app_data_handler
 from core.console import console
 
 class Controller(object):
+    """
+    控制器注册与调度运行类
+
+    用于将用户带装饰器的控制器存入列表，在主程序时调用控制器的run方法
+    """
     _CONTROLLER = {}
 
     def run(self, driver, controller=()):

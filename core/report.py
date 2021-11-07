@@ -1,6 +1,11 @@
 from core.data_handler import app_data_handler
 
 class Report:
+    """
+    框架报告输出类
+
+    用于框架运行完毕后的数据可视化输出
+    """
 
     def __init__(self):
         pass

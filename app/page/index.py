@@ -1,6 +1,4 @@
-import core.page_model
 from core.page_model import PageModel
-
 
 class Index(PageModel):
 
