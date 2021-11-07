@@ -13,20 +13,20 @@ class PageModel:
     用于便捷的操作页面元素，和处理错误
     注：页面上所有xpath参数，表示的都是页面模型中_XPATH字典定义的名称。不能直接传入xpath路径
     """
-    base_url = config.app['base_url']
     driver = ''
+    _BASE_URL = config.app['base_url']
     _URL = ''
     _XPATH = {}
     _DATA = {}
 
     def __init__(self, driver):
-        url = self._URL
+        url = self._BASE_URL + self._URL
         console.info('运行页面模型：{}'.format(url))
         app_data_handler.setInc("page_num")
         app_data_handler.insert_arr("page_list", url)
         current_page_url = driver.current_url
         if current_page_url.rfind(url) == -1:
-            driver.get(self.base_url + url)
+            driver.get(url)
             time.sleep(2)
         current_page_url = driver.current_url
         if current_page_url.rfind(url) == -1:
@@ -69,7 +69,7 @@ class PageModel:
         输入框表单项填入数据
 
         :param xpath: 操作的输入框xpath名
-        :param data:
+        :param data:为空时，将在_DATA中寻找xpath名相同的值
         :return:
         """
         ele = self.xpath(xpath)

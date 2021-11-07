@@ -4,6 +4,9 @@ from core.page_model import PageModel
 
 class Index(PageModel):
 
+    # 用于覆盖配置的域名
+    # _BASE_URL = 'http://news.baidu.com/'
+
     _URL = '/'
 
     _XPATH = {
@@ -13,7 +16,7 @@ class Index(PageModel):
     }
 
     _DATA = {
-        'search_input': 'TestCLI',
+        'search_input': 'OrangeTest',
     }
 
     def search(self):

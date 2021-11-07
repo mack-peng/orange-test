@@ -191,6 +191,10 @@ from core.page_model import PageModel
 
 # 继承PageModel
 class Login(PageModel):
+    
+    # 【基本结构】用于覆盖配置的域名
+    _BASE_URL = 'https://new.baidu.com'
+    
     # 【基本结构】页面路径
     _URL = '/login'
 
@@ -233,9 +237,11 @@ class Login(PageModel):
 - select(selectXpath, optionXpath, \_sleep=0.6)：点击页面下拉方法，传入两个 xpath。间隔时间默认 0.6s
 - select_down(selectXpath, downCount=1, \_sleep=0.3)：用于处理非 select 下拉选项，传入下拉元素的 xpath 即可，downCount：选择第几项。默认延时0.3s
 
-包含三个数据配置项
+包含以下数据配置项
 
-- \_URL：string，该页面的路径，实例化该页面模型时，会检查是否为该页面，不是将会跳转到该页面
+- \_BASE_URL：String，用于域名不同与配置的页面，覆盖配置的域名
+
+- \_URL：String，该页面的路径，实例化该页面模型时，会检查是否为该页面，不是将会跳转到该页面
 - \_XPATH：{}，定义该页面需要操作的元素的 xpath，用于之后方便使用，操作页面都需要在此处定义才能操作
 - \_DATA：{}，表单填写数据定义，使用 input(xpath)时，将在此寻找与 xpath 的同名对象参数值
 
@@ -354,6 +360,8 @@ console.error(message)
 [2021-11-06] 添加框架报告类core/report.py。用于运行后的报告
 
 [2021-11-06] 配置文件新增配置项`app.console_level`，控制台输出级别info,debug,warning,error
+
+[2021-11-07] 页面模型中添加_BASE_URL配置，可用于域名和主配置不同的页面
 
 ## 联系作者
 
