@@ -126,6 +126,65 @@ class PageModel:
             selectEle.send_keys(Keys.DOWN)
         selectEle.send_keys(Keys.ENTER)
 
+    def equals_xpath_exist(self, xpath):
+        """
+        断言元素页面是否定义
+
+        :param xpath: 元素的xpath
+        :return: Boolean True：页面上存在，False：页面上不存在
+        """
+        ele = self.xpath(xpath)
+        app_data_handler.setInc("equals_num")
+        if isinstance(ele, ErrorHandler):
+            fail_mesage = '断言 - {} - 元素页面是否定义 - 失败'.format(xpath)
+            app_data_handler.setInc("equals_fail_num")
+            app_data_handler.insert_arr("equals_fail_list", fail_mesage)
+            console.warning(fail_mesage)
+            return False
+        else:
+            console.info('断言 - {} - 元素页面是否定义 - 成功'.format(xpath))
+            return True
+
+    def equals_xpath_text(self, xpath, text=''):
+        """
+        断言元素文字是否符合预期
+
+        :param xpath:元素的xpath
+        :param text:预期的字符串
+        :return:Boolean True: 符合预期，False：不符合预期
+        """
+        ele = self.xpath(xpath)
+        content = ele.get_attribute("textContent")
+        app_data_handler.setInc("equals_num")
+        if content == text:
+            console.info('断言 - {} - 元素的值为 {} - 成功 '.format(xpath, text))
+            return True
+        else:
+            fail_mesage = '断言 - {} - 元素的值为 {} - 失败 '.format(xpath, text)
+            app_data_handler.setInc("equals_fail_num")
+            app_data_handler.insert_arr("equals_fail_list", fail_mesage)
+            console.warning(fail_mesage)
+            return False
+
+    def equals_current_url(self, url=''):
+        """
+        断言当前页面url是否是预期url，可传入全部或部分url
+
+        :param url: 全部或部分url
+        :return:Boolean True: 符合预期，False：不符合预期
+        """
+        current_page_url = self.driver.current_url
+        app_data_handler.setInc("equals_num")
+        if current_page_url.rfind(url) == -1:
+            fail_mesage = '断言 - 浏览器地址包含 {} - 失败 '.format(url)
+            app_data_handler.setInc("equals_fail_num")
+            app_data_handler.insert_arr("equals_fail_list", fail_mesage)
+            console.warning(fail_mesage)
+            return False
+        else:
+            console.info('断言 - 浏览器地址包含 {} - 成功 '.format(url))
+            return True
+
     def _ranstr(self, num=5, prefix=''):
         """
         生成随机字符串

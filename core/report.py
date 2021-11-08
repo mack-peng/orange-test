@@ -20,6 +20,7 @@ class Report:
                 print(controller_name)
         else:
             print('无')
+
         print("操作页面数量：{}".format(app_data_handler.select('page_num')))
         print("页面路径列表：")
         page_list = app_data_handler.select('page_list')
@@ -28,10 +29,21 @@ class Report:
                 print(page_name)
         else:
             print('无')
+
         print('错误数量：{}'.format(app_data_handler.select('error_num')))
         error_list = app_data_handler.select('error_list')
         if error_list != 'None':
             for error_name in error_list:
                 print(error_name)
+        else:
+            print('无')
+
+        print("断言数量：{}".format(app_data_handler.select('equals_num')))
+        print("断言失败数量：{}".format(app_data_handler.select('equals_fail_num')))
+        print("断言失败列表：")
+        equals_fail_list = app_data_handler.select('equals_fail_list')
+        if equals_fail_list != 'None':
+            for equals_fail in equals_fail_list:
+                print(equals_fail)
         else:
             print('无')

@@ -236,6 +236,9 @@ class Login(PageModel):
 - input_random(self, xpath, num=5, prefix='')：向页面输入框元素填入随机字符串，可指定字符长度和前缀
 - select(selectXpath, optionXpath, \_sleep=0.6)：点击页面下拉方法，传入两个 xpath。间隔时间默认 0.6s
 - select_down(selectXpath, downCount=1, \_sleep=0.3)：用于处理非 select 下拉选项，传入下拉元素的 xpath 即可，downCount：选择第几项。默认延时0.3s
+- equals_xpath_exist(xpath)：断言元素页面是否定义
+- equals_xpath_text(xpath, text='')：断言元素文字是否符合预期
+- equals_current_url(url='')：断言当前页面url是否是预期url，可传入全部或部分url
 
 包含以下数据配置项
 
@@ -362,6 +365,8 @@ console.error(message)
 [2021-11-06] 配置文件新增配置项`app.console_level`，控制台输出级别info,debug,warning,error
 
 [2021-11-07] 页面模型中添加_BASE_URL配置，可用于域名和主配置不同的页面
+
+[2021-11-08] 页面模型中新增三个断言方法，运行报告中新增断言结果报告
 
 ## 联系作者
 
